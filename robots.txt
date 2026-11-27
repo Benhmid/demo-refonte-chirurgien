@@ -1,0 +1,4 @@
+# Version de test : ne pas indexer (le site officiel reste mauricemommaerts.clinic).
+# Au lancement officiel : remplacer par "Allow: /" et ajouter le Sitemap.
+User-agent: *
+Disallow: /
