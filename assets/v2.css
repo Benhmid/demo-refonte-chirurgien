@@ -769,3 +769,13 @@ body::after {
   .fmap__dot { opacity: 1; transform: none; }
   .fmap__dot::after { animation: none; }
 }
+
+/* Ouverture : la sculpture reste entière (cadrée en haut), le texte passe à droite sur les rideaux */
+.cine__frame video { object-position: 38% 0%; transform-origin: 38% 0%; }
+@media (min-width: 881px) {
+  .cine__lines { inset: 0; display: grid; align-items: center; }
+  .cine__lines p { left: 54%; right: 5vw; bottom: auto; top: 50%; max-width: 12ch; translate: 0 -50%; font-size: clamp(40px, 5.2vw, 88px); }
+}
+@media (max-width: 880px) {
+  .cine__frame video { object-position: 36% 0%; }
+}

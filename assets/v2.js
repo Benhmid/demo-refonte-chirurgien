@@ -49,18 +49,21 @@
       const a = sticky.getBoundingClientRect(), b = slot.getBoundingClientRect();
       box = { t: b.top - a.top, l: b.left - a.left, w: b.width, h: b.height, W: a.width, H: a.height };
     };
+    // La vidéo plein écran s'arrête sous la barre de menu : la tête de la sculpture reste visible.
+    const hd = $(".header");
+    const headerOffset = () => (hd ? hd.offsetHeight : 0);
     const update = () => {
       raf = 0;
       const r = cine.getBoundingClientRect();
       const range = Math.max(cine.offsetHeight - sticky.offsetHeight, 1);
       const p = clamp(-r.top / range);
-      const e = ease(clamp(p / 0.4)), k = 1 - e;
+      const e = ease(clamp(p / 0.4)), k = 1 - e, T = headerOffset();
       Object.assign(frame.style, {
-        top: box.t * k + "px", left: box.l * k + "px",
-        width: box.w + (box.W - box.w) * e + "px", height: box.h + (box.H - box.h) * e + "px",
+        top: box.t * k + T * e + "px", left: box.l * k + "px",
+        width: box.w + (box.W - box.w) * e + "px", height: box.h + (box.H - T - box.h) * e + "px",
         borderRadius: 28 * k + "px",
       });
-      frame.style.setProperty("--vs", (1 + .08 * e).toFixed(4));
+      frame.style.setProperty("--vs", (1 + .04 * e).toFixed(4));
       frame.style.setProperty("--dark", clamp((p - .3) / .2).toFixed(3));
       const fade = clamp(p / .22);
       text.style.opacity = 1 - fade;
