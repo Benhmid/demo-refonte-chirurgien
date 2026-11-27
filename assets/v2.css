@@ -757,7 +757,8 @@ body::after {
 .fmap__list li span { flex: none; color: var(--muted); font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
 .fmap__actions { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; margin-top: 24px; }
 @media (max-width: 880px) {
-  .fmap__grid { grid-template-columns: 1fr; }
+  .fmap__grid { grid-template-columns: minmax(0, 1fr); }
+  .fmap__panel, .fmap__stage { min-width: 0; }
   .fmap__stage { max-width: 320px; }
   .fmap__chips { flex-wrap: nowrap; overflow-x: auto; margin-inline: -16px; padding: 0 16px 4px; scrollbar-width: none; }
   .fmap__chips button { flex: none; }

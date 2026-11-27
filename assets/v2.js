@@ -52,7 +52,8 @@
     const update = () => {
       raf = 0;
       const r = cine.getBoundingClientRect();
-      const p = clamp(-r.top / (cine.offsetHeight - innerHeight));
+      const range = Math.max(cine.offsetHeight - sticky.offsetHeight, 1);
+      const p = clamp(-r.top / range);
       const e = ease(clamp(p / 0.4)), k = 1 - e;
       Object.assign(frame.style, {
         top: box.t * k + "px", left: box.l * k + "px",
