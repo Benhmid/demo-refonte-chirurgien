@@ -33,6 +33,51 @@
     document.addEventListener("keydown", (e) => e.key === "Escape" && setMenu(false));
   }
 
+  // Accueil : ouverture cinématique, la vidéo s'agrandit jusqu'au plein écran au défilement
+  const cine = $(".cine");
+  if (cine && !reduced) {
+    const sticky = $(".cine__sticky", cine), slot = $(".cine__slot", cine);
+    const frame = $(".cine__frame", cine);
+    const text = $(".cine__text", cine), card = $(".doc-card", cine);
+    const lines = $$(".cine__lines p", cine);
+    frame.appendChild($("video", slot));
+    cine.classList.add("is-on");
+    const clamp = (v) => Math.min(Math.max(v, 0), 1);
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    let box, raf = 0;
+    const measure = () => {
+      const a = sticky.getBoundingClientRect(), b = slot.getBoundingClientRect();
+      box = { t: b.top - a.top, l: b.left - a.left, w: b.width, h: b.height, W: a.width, H: a.height };
+    };
+    const update = () => {
+      raf = 0;
+      const r = cine.getBoundingClientRect();
+      const p = clamp(-r.top / (cine.offsetHeight - innerHeight));
+      const e = ease(clamp(p / 0.4)), k = 1 - e;
+      Object.assign(frame.style, {
+        top: box.t * k + "px", left: box.l * k + "px",
+        width: box.w + (box.W - box.w) * e + "px", height: box.h + (box.H - box.h) * e + "px",
+        borderRadius: 28 * k + "px",
+      });
+      frame.style.setProperty("--vs", (1 + .08 * e).toFixed(4));
+      frame.style.setProperty("--dark", clamp((p - .3) / .2).toFixed(3));
+      const fade = clamp(p / .22);
+      text.style.opacity = 1 - fade;
+      text.style.transform = `translateY(${-36 * fade}px)`;
+      if (card) card.style.opacity = 1 - clamp(p / .12);
+      lines.forEach((el, i) => {
+        const a = .42 + i * .18, last = i === lines.length - 1;
+        const vin = clamp((p - a) / .06), vout = last ? 0 : clamp((p - a - .13) / .05);
+        el.style.opacity = vin * (1 - vout);
+        el.style.transform = `translateY(${(1 - vin) * 28 - vout * 28}px)`;
+      });
+    };
+    const req = () => { if (!raf) raf = requestAnimationFrame(update); };
+    measure(); update();
+    addEventListener("scroll", req, { passive: true });
+    addEventListener("resize", () => { measure(); req(); });
+  }
+
   // Apparitions au défilement
   const io = new IntersectionObserver((entries) => entries.forEach((e) => {
     if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
@@ -112,6 +157,73 @@
       });
     }));
   });
+
+  // Accueil : carte du visage interactive
+  const fmap = $(".fmap");
+  if (fmap) {
+    const it = (name, dur) => [name, dur];
+    const ZONES = {
+      front: { t: "Front et sourcils", d: "Lifting frontal et lifting des sourcils, pour la partie haute du visage.",
+        items: [it("Lifting frontal", ""), it("Lifting des sourcils", ""), it("Correction de la ligne des cheveux et reconstruction du front", "")],
+        g: "lifting", f: "lifting", form: "Lifting du visage et du cou" },
+      paupieres: { t: "Paupières", d: "La blépharoplastie retire l'excès de peau, et parfois de graisse, pour un regard plus ouvert et reposé.",
+        items: [it("Blépharoplastie supérieure", "45 min"), it("Blépharoplastie inférieure", "1,5 h"), it("SOOF lift et blépharoplastie inférieure combinés", "4 h")],
+        g: "paupieres", f: "paupieres", form: "Chirurgie des paupières" },
+      nez: { t: "Nez", d: "Rhinoplastie totale, secondaire ou ethnique, correction de la bosse ou de la pointe, septoplastie.",
+        items: [it("Rhinoplastie totale", "2 h"), it("Partie osseuse (bosse)", "1 h"), it("Pointe (cartilage)", "1,5 h"), it("Septoplastie", "1 h")],
+        g: "nez", f: "nez", form: "Rhinoplastie" },
+      pommettes: { t: "Pommettes et volumes", d: "Restaurer ou affiner les volumes du visage, par la graisse du patient, l'os ou un implant sur mesure.",
+        items: [it("Lipofilling du visage complet", "3 h"), it("Réduction des boules de Bichat", "1 h"), it("Ostéotomie malaire bilatérale", "2 h"), it("Onlay malaire sur mesure", "1,5 h")],
+        g: "lipofilling", f: "ortho", form: "Lipofilling et injectables" },
+      oreilles: { t: "Oreilles", d: "Correction des oreilles décollées et du lobe.",
+        items: [it("Correction des oreilles décollées, par côté", "1 h"), it("Correction du lobe de l'oreille, par côté", "1 h")],
+        g: "oreilles", f: "", form: "Menton et contours" },
+      levres: { t: "Lèvre supérieure", d: "Lifting de la lèvre supérieure, liposuccion péri-orale et injectables.",
+        items: [it("Lifting de la lèvre supérieure", "1,5 h"), it("Liposuccion péri-orale (bourrelets)", "1 h"), it("Produit de comblement, par ml", "30 min")],
+        g: "lifting", f: "", form: "Lipofilling et injectables" },
+      machoires: { t: "Mâchoires", d: "La chirurgie des mâchoires corrige leur position et l'asymétrie faciale. Le Pr Mommaerts est un pionnier des implants conçus sur mesure à partir d'un scanner.",
+        items: [it("Intervention bimaxillaire", "4 h"), it("Ostéotomie mandibulaire", "2 h"), it("Réduction de l'angle mandibulaire", "1 h"), it("Implant enveloppant sur mesure", "2 h")],
+        g: "orthognathique", f: "ortho", form: "Chirurgie orthognathique" },
+      menton: { t: "Menton", d: "Génioplastie, chirurgie du menton, seule ou associée à la chirurgie des mâchoires.",
+        items: [it("Mentoplastie étendue", "2-3 h"), it("Mentoplastie (petite)", "2 h")],
+        g: "menton", f: "ortho", form: "Menton et contours" },
+      cou: { t: "Cou et ovale", d: "Du mini-lifting au lifting cervico-facial en plan profond, qui améliore la ligne mandibulaire et les bajoues.",
+        items: [it("Mini-lifting du cou et de l'ovale du visage", "4 h"), it("Lifting du cou", "4-5 h"), it("Lifting cervico-facial assisté par endoscopie", "4-5 h"), it("Réduction de la pomme d'Adam", "")],
+        g: "lifting", f: "lifting", form: "Lifting du visage et du cou" },
+    };
+    const XY = {};
+    const body = $("#fmap-body"), glow = $(".fmap__glow", fmap);
+    const ctrls = $$("[data-zone]", fmap);
+    ctrls.forEach((b) => {
+      if (b.classList.contains("fmap__dot")) XY[b.dataset.zone] = [parseFloat(b.style.left) * 3.6, parseFloat(b.style.top) * 4.6];
+    });
+    const render = (z) => {
+      const d = ZONES[z];
+      const rows = d.items.map(([n, t]) => `<li>${n}${t ? `<span><i class="ph-light ph-clock" aria-hidden="true"></i>${t}</span>` : ""}</li>`).join("");
+      body.innerHTML = `<h3>${d.t}</h3><p>${d.d}</p><ul class="fmap__list">${rows}</ul>
+        <div class="fmap__actions">
+          <a class="btn btn--ink" href="contact.html?intervention=${encodeURIComponent(d.form)}">Demander un devis <i class="ph-light ph-arrow-right" aria-hidden="true"></i></a>
+          <a class="link" href="interventions.html#${d.g}">Détails et durées</a>
+          ${d.f ? `<a class="link" href="resultats.html?f=${d.f}">Voir les résultats</a>` : ""}
+        </div>`;
+    };
+    let current = "";
+    const select = (z, user) => {
+      if (z === current) return;
+      current = z;
+      ctrls.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.zone === z)));
+      if (glow && XY[z]) { glow.setAttribute("cx", XY[z][0]); glow.setAttribute("cy", XY[z][1]); }
+      if (!user || reduced) return render(z);
+      body.classList.add("is-swap");
+      setTimeout(() => { render(z); requestAnimationFrame(() => body.classList.remove("is-swap")); }, 180);
+    };
+    ctrls.forEach((b) => b.addEventListener("click", () => select(b.dataset.zone, true)));
+    select("nez", false);
+  }
+
+  // Page Résultats : filtre pré-sélectionné depuis l'URL (resultats.html?f=nez)
+  const pf = new URLSearchParams(location.search).get("f");
+  if (pf) { const fb = $(`[data-filters] button[data-f="${CSS.escape(pf)}"]`); fb && fb.click(); }
 
   // Formulaire (démo : à brancher sur l'outil de prise de rendez-vous du cabinet)
   $$(".form").forEach((form) => form.addEventListener("submit", (e) => {
