@@ -199,7 +199,7 @@
     const body = $("#fmap-body"), glow = $(".fmap__glow", fmap);
     const ctrls = $$("[data-zone]", fmap);
     ctrls.forEach((b) => {
-      if (b.classList.contains("fmap__dot")) XY[b.dataset.zone] = [parseFloat(b.style.left) * 3.6, parseFloat(b.style.top) * 4.6];
+      if (b.classList.contains("fmap__dot")) XY[b.dataset.zone] = [b.style.left, b.style.top];
     });
     const render = (z) => {
       const d = ZONES[z];
@@ -216,7 +216,7 @@
       if (z === current) return;
       current = z;
       ctrls.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.zone === z)));
-      if (glow && XY[z]) { glow.setAttribute("cx", XY[z][0]); glow.setAttribute("cy", XY[z][1]); }
+      if (glow && XY[z]) { glow.style.left = XY[z][0]; glow.style.top = XY[z][1]; }
       if (!user || reduced) return render(z);
       body.classList.add("is-swap");
       setTimeout(() => { render(z); requestAnimationFrame(() => body.classList.remove("is-swap")); }, 180);
