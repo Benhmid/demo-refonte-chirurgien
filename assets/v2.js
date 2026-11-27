@@ -115,13 +115,13 @@
   }
 
   // Accueil : onglets qui changent le cas affiché dans le comparateur
-  const U = "https://mauricemommaerts.clinic/wp-content/uploads/";
+  const U = "media/";
   const HOME_CASES = [
-    { before: "2026/05/Naamloos.png", after: "2026/05/Naamloos-3.png", when: "12 mois après",
+    { before: "2026/05/Naamloos.webp", after: "2026/05/Naamloos-3.webp", when: "12 mois après",
       desc: "Le lifting cervico-facial en plan profond améliore la ligne mandibulaire, les bajoues et le tiers moyen du visage en repositionnant les tissus mous descendus." },
-    { before: "2026/08/Naamloos.png", after: "2026/08/Naamloos-2-1-uai-1032x1299.png", when: "12 mois après",
+    { before: "2026/08/Naamloos.webp", after: "2026/08/Naamloos-2-1-uai-1032x1299.webp", when: "12 mois après",
       desc: "Génioplastie de glissement associée à des implants PEEK sur mesure, pour accentuer les angles mandibulaires et le bord inférieur de la mandibule." },
-    { before: "2026/09/voor_zwart_v1-1.png", after: "2026/09/na_zwart_v1.png", when: "12 mois après",
+    { before: "2026/09/voor_zwart_v1-1.webp", after: "2026/09/na_zwart_v1.webp", when: "12 mois après",
       desc: "Les deux mâchoires avancées en une seule intervention redonnent au visage le soutien qui lui manquait et rétablissent les proportions du profil. Une rhinoplastie complète l'ensemble." },
   ];
   const tabs = $$(".case[data-case]");

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Votre nouveau site | Présentation</title>
+  <meta name="description" content="Présentation de la refonte du site du Pr Mommaerts : avant et après.">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/v2.css?v=1795785194">
+  <style>
+    .pt-hero { padding: clamp(48px, 8vw, 110px) 0 clamp(32px, 5vw, 56px); text-align: center; }
+    .pt-hero .eyebrow { display: inline-block; margin-bottom: 20px; padding: 6px 14px; border-radius: 999px; background: #eef3f9; color: var(--bronze); font-size: 13.5px; font-weight: 600; }
+    .pt-hero h1 { font-size: clamp(40px, 6vw, 84px); line-height: 1.02; letter-spacing: -.04em; font-weight: 600; color: var(--ink); text-wrap: balance; }
+    .pt-hero h1 em { font-style: normal; color: var(--bronze); }
+    .pt-hero p { margin: 22px auto 0; max-width: 52ch; font-size: 19px; text-wrap: pretty; }
+    .pt-hint { margin-top: 18px; color: var(--muted); font-size: 14px; display: inline-flex; gap: 8px; align-items: center; }
+    .browser { border-radius: 18px; overflow: hidden; background: #fff; box-shadow: 0 50px 100px -50px rgba(14, 27, 44, .55), 0 0 0 1px rgba(14, 27, 44, .08); }
+    .browser__bar { height: 40px; display: flex; align-items: center; gap: 7px; padding: 0 16px; background: #f1f4f8; border-bottom: 1px solid var(--line); }
+    .browser__bar i { width: 11px; height: 11px; border-radius: 50%; background: #d5dbe3; }
+    .browser__bar span { margin-left: 14px; flex: 1; max-width: 360px; height: 24px; border-radius: 7px; background: #fff; color: var(--muted); font-size: 12.5px; display: flex; align-items: center; padding: 0 10px; }
+    .browser .ba { aspect-ratio: 16 / 10; border-radius: 0; width: 100%; }
+    .browser .ba__tag { top: auto; bottom: 16px; }
+    .browser { max-width: min(1120px, calc((100vh - 120px) * 1.6)); margin-inline: auto; }
+    .phones { display: grid; grid-template-columns: repeat(2, minmax(0, 300px)); justify-content: center; gap: clamp(24px, 6vw, 96px); }
+    .phone { text-align: center; }
+    .phone__frame { border-radius: 42px; padding: 10px; background: #0e1b2c; box-shadow: 0 40px 80px -40px rgba(14, 27, 44, .6); }
+    .phone__frame img { display: block; width: 100%; aspect-ratio: 390 / 844; object-fit: cover; object-position: top; border-radius: 33px; }
+    .phone figcaption { margin-top: 18px; font-weight: 600; color: var(--ink); }
+    .phone figcaption small { display: block; margin-top: 4px; font-weight: 400; color: var(--muted); font-size: 14.5px; }
+    .sc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .sc { padding: 24px 26px; border-radius: var(--radius); background: #fff; border: 1px solid var(--line); }
+    .sc__head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 18px; color: var(--ink); font-weight: 600; }
+    .sc__head b { font-size: 26px; letter-spacing: -.02em; display: inline-flex; gap: 8px; align-items: center; }
+    .sc__head b i { font-size: 18px; color: var(--muted); }
+    .sc__row { display: grid; grid-template-columns: 64px 1fr 32px; gap: 12px; align-items: center; margin-top: 8px; font-size: 13.5px; color: var(--muted); }
+    .sc__row em { font-style: normal; text-align: right; color: var(--ink); font-weight: 600; }
+    .sc__bar { height: 8px; border-radius: 99px; background: #eef1f5; overflow: hidden; }
+    .sc__fill { display: block; height: 100%; width: calc(var(--v) * 1%); border-radius: inherit; background: var(--bronze); transform-origin: left; transform: scaleX(0); transition: transform 1.2s cubic-bezier(.23, 1, .32, 1) .2s; }
+    .sc__fill--old { background: #b9c2ce; }
+    .sc.is-in .sc__fill { transform: none; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+    .kpi { padding: 26px; border-radius: var(--radius); background: var(--ink); color: #c9d4e2; }
+    .kpi b { display: flex; gap: 10px; align-items: center; color: #fff; font-size: clamp(26px, 3vw, 36px); font-weight: 600; letter-spacing: -.03em; }
+    .kpi b i { font-size: 22px; color: #8fb1d8; }
+    .kpi span { display: block; margin-top: 8px; font-size: 15px; }
+    .feat { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .feat a { display: block; padding: 28px; border-radius: var(--radius); background: #fff; border: 1px solid var(--line); color: inherit; text-decoration: none; transition: transform 200ms cubic-bezier(.23, 1, .32, 1), box-shadow 200ms ease; }
+    .feat a:hover { transform: translateY(-3px); box-shadow: 0 24px 48px -32px rgba(14, 27, 44, .4); }
+    .feat i.ico { font-size: 28px; color: var(--bronze); }
+    .feat h3 { margin-top: 16px; font-size: 21px; font-weight: 600; color: var(--ink); letter-spacing: -.02em; }
+    .feat p { margin-top: 8px; font-size: 15.5px; }
+    .feat span { display: inline-flex; gap: 6px; align-items: center; margin-top: 16px; color: var(--ink); font-weight: 600; font-size: 14.5px; }
+    .pt-cta { text-align: center; padding: clamp(64px, 9vw, 120px) 0; }
+    .pt-cta h2 { font-size: clamp(34px, 4.6vw, 60px); font-weight: 600; letter-spacing: -.035em; color: var(--ink); line-height: 1.05; text-wrap: balance; }
+    .pt-cta .hero__ctas { justify-content: center; }
+    @media (max-width: 880px) {
+      .sc-grid, .kpi-grid, .feat { grid-template-columns: minmax(0, 1fr); }
+      .phones { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+      .phone__frame { border-radius: 26px; padding: 6px; }
+      .phone__frame img { border-radius: 21px; }
+      .browser__bar span { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="demo-tag">Maquette de démonstration, pas le site officiel</div>
+<main id="contenu">
+
+  <section class="pt-hero">
+    <div class="wrap">
+      <span class="eyebrow">Proposition de refonte</span>
+      <h1>Votre site, <em>avant et après.</em></h1>
+      <p>Faites glisser la poignée, comme pour vos propres résultats. Même contenu, même vidéo, mêmes cas patients : une mise en scène qui donne envie de prendre rendez-vous.</p>
+    </div>
+  </section>
+
+  <section style="padding-bottom:clamp(56px,8vw,100px)">
+    <div class="wrap">
+      <div class="browser reveal">
+        <div class="browser__bar"><i></i><i></i><i></i><span>mauricemommaerts.clinic</span></div>
+        <div class="ba" data-demo style="--pos:50%">
+          <img src="assets/pitch/ancien-desktop.webp" alt="Page d'accueil actuelle" width="1440" height="900">
+          <img class="ba__after" src="assets/pitch/nouveau-desktop.webp" alt="Nouvelle page d'accueil" width="1440" height="900">
+          <span class="ba__handle" aria-hidden="true"><i class="ph-bold ph-arrows-left-right"></i></span>
+          <span class="ba__tag ba__tag--l">Actuel</span>
+          <span class="ba__tag ba__tag--r">Nouveau</span>
+          <input type="range" min="0" max="100" value="50" aria-label="Comparer le site actuel et le nouveau site">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:#f5f8fc">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 class="h2 reveal">Sur téléphone, <em>là où vos patients vous découvrent.</em></h2>
+        <p class="lead reveal" style="max-width:40ch">Le premier écran, tel qu'il s'affiche sur un iPhone.</p>
+      </div>
+      <div class="phones">
+        <figure class="phone reveal"><div class="phone__frame"><img src="assets/pitch/ancien-mobile.webp" alt="Site actuel sur téléphone" loading="lazy" width="585" height="1266"></div><figcaption>Actuel</figcaption></figure>
+        <figure class="phone reveal" data-d="1"><div class="phone__frame"><img src="assets/pitch/nouveau-mobile.webp" alt="Nouveau site sur téléphone" loading="lazy" width="585" height="1266"></div><figcaption>Nouveau<small>Le bouton de rendez-vous dès le premier écran</small></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="mesures">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 class="h2 reveal">Mesuré par Google, <em>pas par nous.</em></h2>
+        <p class="lead reveal" style="max-width:44ch">Scores Lighthouse, l'outil de Google qui note les sites sur mobile. Médiane de 3 mesures par site, sur 100.</p>
+      </div>
+      <div class="sc-grid">
+        <div class="sc reveal">
+          <div class="sc__head"><span>Performance</span><b>43 <i class="ph-light ph-arrow-right" aria-hidden="true"></i> 29</b></div>
+          <div class="sc__row"><small>Actuel</small><div class="sc__bar"><span class="sc__fill sc__fill--old" style="--v:43"></span></div><em>43</em></div>
+          <div class="sc__row"><small>Nouveau</small><div class="sc__bar"><span class="sc__fill" style="--v:29"></span></div><em>29</em></div>
+        </div>
+        <div class="sc reveal">
+          <div class="sc__head"><span>Accessibilité</span><b>80 <i class="ph-light ph-arrow-right" aria-hidden="true"></i> 100</b></div>
+          <div class="sc__row"><small>Actuel</small><div class="sc__bar"><span class="sc__fill sc__fill--old" style="--v:80"></span></div><em>80</em></div>
+          <div class="sc__row"><small>Nouveau</small><div class="sc__bar"><span class="sc__fill" style="--v:100"></span></div><em>100</em></div>
+        </div>
+        <div class="sc reveal">
+          <div class="sc__head"><span>Bonnes pratiques</span><b>100 <i class="ph-light ph-arrow-right" aria-hidden="true"></i> 100</b></div>
+          <div class="sc__row"><small>Actuel</small><div class="sc__bar"><span class="sc__fill sc__fill--old" style="--v:100"></span></div><em>100</em></div>
+          <div class="sc__row"><small>Nouveau</small><div class="sc__bar"><span class="sc__fill" style="--v:100"></span></div><em>100</em></div>
+        </div>
+        <div class="sc reveal">
+          <div class="sc__head"><span>Référencement</span><b>100 <i class="ph-light ph-arrow-right" aria-hidden="true"></i> 63</b></div>
+          <div class="sc__row"><small>Actuel</small><div class="sc__bar"><span class="sc__fill sc__fill--old" style="--v:100"></span></div><em>100</em></div>
+          <div class="sc__row"><small>Nouveau</small><div class="sc__bar"><span class="sc__fill" style="--v:63"></span></div><em>63</em></div>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi reveal"><b>6,3 s <i class="ph-light ph-arrow-right" aria-hidden="true"></i> 16,3 s</b><span>pour afficher l'essentiel de la page sur mobile (LCP)</span></div>
+        <div class="kpi reveal" data-d="1"><b>0,8 Mo <i class="ph-light ph-arrow-right" aria-hidden="true"></i> 7,7 Mo</b><span>de données téléchargées à l'ouverture de la page d'accueil</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 class="h2 reveal">Trois choses à essayer <em>sur la nouvelle version.</em></h2>
+      </div>
+      <div class="feat">
+        <a class="reveal" href="index.html"><i class="ph-light ph-film-strip ico" aria-hidden="true"></i><h3>L'ouverture</h3><p>Faites défiler la page d'accueil : la vidéo de la sculpture s'ouvre en plein écran.</p><span>Ouvrir <i class="ph-light ph-arrow-right" aria-hidden="true"></i></span></a>
+        <a class="reveal" data-d="1" href="index.html#visage"><i class="ph-light ph-user-focus ico" aria-hidden="true"></i><h3>La carte du visage</h3><p>Le patient touche une zone et voit les interventions, leur durée et les résultats.</p><span>Essayer <i class="ph-light ph-arrow-right" aria-hidden="true"></i></span></a>
+        <a class="reveal" data-d="2" href="resultats.html"><i class="ph-light ph-images ico" aria-hidden="true"></i><h3>Les résultats</h3><p>Tous les cas avant-après, filtrés par intervention, avec un comparateur à glisser.</p><span>Voir <i class="ph-light ph-arrow-right" aria-hidden="true"></i></span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-cta" style="background:#f5f8fc">
+    <div class="wrap">
+      <h2 class="reveal">Visitez la nouvelle version.</h2>
+      <div class="hero__ctas">
+        <a class="btn btn--ink" href="index.html">Ouvrir le nouveau site <i class="ph-light ph-arrow-right" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+<script src="assets/v2.js?v=1795785194"></script>
+</body>
+</html>
