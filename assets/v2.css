@@ -793,3 +793,5 @@ body::after {
 }
 .fmap__stage.is-in .fmap__dot { transition-delay: .5s; }
 @media (max-width: 880px) { .fmap__stage { max-width: 300px; } }
+/* Mobile : les phrases de l'ouverture passent au-dessus de l'étiquette de démo et de la barre d'action */
+@media (max-width: 880px) { .cine__lines { bottom: 150px; } }

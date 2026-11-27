@@ -78,6 +78,11 @@
     };
     const req = () => { if (!raf) raf = requestAnimationFrame(update); };
     measure(); update();
+    // La police web change la hauteur du texte : on recalcule la place de la vidéo quand la mise en page bouge.
+    const remeasure = () => { measure(); update(); };
+    if (document.fonts) document.fonts.ready.then(remeasure);
+    addEventListener("load", remeasure);
+    if ("ResizeObserver" in window) new ResizeObserver(remeasure).observe(text);
     addEventListener("scroll", req, { passive: true });
     addEventListener("resize", () => { measure(); req(); });
   }
